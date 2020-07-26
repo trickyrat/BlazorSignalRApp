@@ -1,0 +1,46 @@
+﻿@page "/databinding"
+
+
+<h2>DataBinding</h2>
+
+<p>CurrentValue: @CurrentValue</p> <!--单向绑定-->
+
+<input class="form-control" @bind="CurrentValue" />   <!--双向绑定  焦点离开input后更新数据-->
+
+<input class="form-control" @bind="CurrentValue" @bind:event="oninput" /> <!--双向绑定 并根据触发oninput事件进行数据更新-->
+
+<button class="btn btn-primary" @onclick="Count">Click me</button>
+
+
+
+
+<EditForm Model="@personModel" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group row">
+        <label class="col-form-label col-sm-2" for="Name">姓名</label>
+        <div class="col-sm-10">
+            <InputText class="form-control" id="Name" @bind-Value="personModel.Name" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="Age" class="col-sm-2 col-form-label">年龄</label>
+        <div class="col-sm-10">
+            <InputNumber id="Age" class="form-control" @bind-Value="personModel.Age" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="Gender" class="col-sm-2 col-form-label">性别</label>
+        <div class="col-sm-10">
+            <InputSelect id="Gender" @bind-Value="personModel.Gender">
+                @foreach (var gender in Enum.GetValues(typeof(Gender)))
+                {
+                    <option value="@gender">@gender</option>
+                }
+            </InputSelect>
+        </div>
+    </div>
+
+    <button class="btn btn-danger" type="submit">Submit</button>
+</EditForm>
+
