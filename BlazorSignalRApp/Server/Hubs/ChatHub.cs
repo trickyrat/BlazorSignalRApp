@@ -54,6 +54,7 @@ namespace BlazorSignalRApp.Server.Hubs
         {
             // 客户端连接到server时，将其添加到SignalR User 组中
             await Groups.AddToGroupAsync(Context.ConnectionId, "SignalR User");
+            // 并向所有用户发送该用户登录消息
             await base.OnConnectedAsync();
         }
 
